@@ -208,8 +208,8 @@ class AraStar:
 
 
 def main():
-    s_start = (5, 5)
-    s_goal = (45, 25)
+    s_start = (1, 1)
+    s_goal = (149, 99)
 
     arastar = AraStar(s_start, s_goal, 2.5, "euclidean")
     plot = plotting.Plotting(s_start, s_goal)

@@ -294,8 +294,8 @@ class DStar:
 
 
 def main():
-    s_start = (5, 5)
-    s_goal = (45, 25)
+    s_start = (1, 1)
+    s_goal = (149, 99)
     dstar = DStar(s_start, s_goal)
     dstar.run(s_start, s_goal)
 

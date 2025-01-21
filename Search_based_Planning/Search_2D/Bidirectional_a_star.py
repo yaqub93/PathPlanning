@@ -215,8 +215,8 @@ class BidirectionalAStar:
 
 
 def main():
-    x_start = (5, 5)
-    x_goal = (45, 25)
+    x_start = (1, 1)
+    x_goal = (149, 99)
 
     bastar = BidirectionalAStar(x_start, x_goal, "euclidean")
     plot = plotting.Plotting(x_start, x_goal)

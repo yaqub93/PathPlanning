@@ -11,8 +11,8 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) +
                 "/../../Sampling_based_Planning/")
 
-from rrt_2D import env
-from rrt_2D.rrt import Node
+from rrt_2D_enc import env
+from rrt_2D_enc.rrt import Node
 
 
 class Utils:
@@ -20,9 +20,11 @@ class Utils:
         self.env = env.Env()
 
         self.delta = 0.5
-        self.obs_circle = self.env.obs_circle
-        self.obs_rectangle = self.env.obs_rectangle
-        self.obs_boundary = self.env.obs_boundary
+        #self.obs_circle = self.env.obs_circle
+        #self.obs_rectangle = self.env.obs_rectangle
+        #self.obs_boundary = self.env.obs_boundary
+        self.land_polygons = self.env.polygon_lists_ne
+        self.boundary = self.env.boundary
 
     def update_obs(self, obs_cir, obs_bound, obs_rec):
         self.obs_circle = obs_cir
@@ -81,6 +83,20 @@ class Utils:
         return False
 
     def is_collision(self, start, end):
+        from shapely.geometry import Polygon, LineString
+        # Create a LineString from the two points
+        line = LineString([(start.x,start.y), (end.x,end.y)])
+        # Check for intersection with each polygon
+        for polygon in self.land_polygons:
+            if line.intersects(polygon):
+                return True
+        
+        if line.intersects(self.boundary):
+            return True 
+        
+        return False
+
+        """
         if self.is_inside_obs(start) or self.is_inside_obs(end):
             return True
 
@@ -102,6 +118,8 @@ class Utils:
                 return True
 
         return False
+        """
+
 
     def is_inside_obs(self, node):
         delta = self.delta

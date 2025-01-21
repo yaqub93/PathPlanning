@@ -41,6 +41,9 @@ class LPAStar:
 
         self.fig = plt.figure()
 
+    def searching(self):
+        self.ComputeShortestPath()
+
     def run(self):
         self.Plot.plot_grid("Lifelong Planning A*")
 

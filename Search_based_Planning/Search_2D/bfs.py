@@ -55,8 +55,8 @@ class BFS(AStar):
 
 
 def main():
-    s_start = (5, 5)
-    s_goal = (45, 25)
+    s_start = (1, 1)
+    s_goal = (149, 99)
 
     bfs = BFS(s_start, s_goal, 'None')
     plot = plotting.Plotting(s_start, s_goal)

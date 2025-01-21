@@ -58,6 +58,7 @@ class RTAAStar:
 
             s_start, path_k = self.extract_path_in_CLOSE(s_start, s_next, h_value)
             self.path.append(path_k)
+        return self.path
 
     def cal_h_value(self, OPEN, CLOSED, g_table, PARENT):
         v_open = {}
@@ -222,8 +223,8 @@ class RTAAStar:
 
 
 def main():
-    s_start = (10, 5)
-    s_goal = (45, 25)
+    s_start = (1, 1)
+    s_goal = (149, 99)
 
     rtaa = RTAAStar(s_start, s_goal, 240, "euclidean")
     plot = plotting.Plotting(s_start, s_goal)

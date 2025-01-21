@@ -11,16 +11,30 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) +
                 "/../../Sampling_based_Planning/")
 
-from rrt_2D import env
+from rrt_2D_enc import env
 
 
 class Plotting:
     def __init__(self, x_start, x_goal):
         self.xI, self.xG = x_start, x_goal
         self.env = env.Env()
-        self.obs_bound = self.env.obs_boundary
-        self.obs_circle = self.env.obs_circle
-        self.obs_rectangle = self.env.obs_rectangle
+        #self.obs_bound = self.env.obs_boundary
+        #self.obs_circle = self.env.obs_circle
+        #self.obs_rectangle = self.env.obs_rectangle
+
+    def plot_polygons(self):
+        polygons = self.env.polygon_lists_ne
+        boundary = self.env.boundary_polygon
+        
+        fig, ax = plt.subplots()
+
+        x, y = boundary.exterior.xy
+        ax.fill(x, y, color='lightblue', alpha = 0.5)  # Alpha controls transparency
+        
+        # Plot each polygon with fill and green color
+        for polygon in polygons:
+            x, y = polygon.exterior.xy
+            ax.fill(x, y, color='green', edgecolor='none')  # Alpha controls transparency
 
     def animation(self, nodelist, path, name, animation=False):
         self.plot_grid(name)
@@ -78,7 +92,7 @@ class Plotting:
             for node in nodelist:
                 count += 1
                 if node.parent:
-                    plt.plot([node.parent.x, node.x], [node.parent.y, node.y], "-g")
+                    plt.plot([node.parent.x, node.x], [node.parent.y, node.y], "-y")
                     plt.gcf().canvas.mpl_connect('key_release_event',
                                                  lambda event:
                                                  [exit(0) if event.key == 'escape' else None])
@@ -87,7 +101,7 @@ class Plotting:
         else:
             for node in nodelist:
                 if node.parent:
-                    plt.plot([node.parent.x, node.x], [node.parent.y, node.y], "-g")
+                    plt.plot([node.parent.x, node.x], [node.parent.y, node.y], "-y")
 
     @staticmethod
     def plot_visited_connect(V1, V2):

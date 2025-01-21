@@ -11,7 +11,7 @@ import numpy as np
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) +
                 "/../../Sampling_based_Planning/")
 
-from rrt_2D import env, plotting, utils
+from rrt_2D_enc import env, plotting, utils
 
 
 class Node:
@@ -36,9 +36,11 @@ class Rrt:
 
         self.x_range = self.env.x_range
         self.y_range = self.env.y_range
-        self.obs_circle = self.env.obs_circle
-        self.obs_rectangle = self.env.obs_rectangle
-        self.obs_boundary = self.env.obs_boundary
+        #self.obs_circle = self.env.obs_circle
+        #self.obs_rectangle = self.env.obs_rectangle
+        #self.obs_boundary = self.env.obs_boundary
+        self.land_polygons = self.env.polygon_lists_ne
+        self.boundary = self.env.boundary
 
     def planning(self):
         for i in range(self.iter_max):
@@ -54,7 +56,7 @@ class Rrt:
                     self.new_state(node_new, self.s_goal)
                     return self.extract_path(node_new)
 
-        return None
+        return self.extract_path(node_new)
 
     def generate_random_node(self, goal_sample_rate):
         delta = self.utils.delta

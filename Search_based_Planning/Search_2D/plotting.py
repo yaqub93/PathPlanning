@@ -35,10 +35,10 @@ class Plotting:
 
         for k in range(len(path)):
             self.plot_visited(visited[k], cl[k])
-            plt.pause(0.2)
+            #plt.pause(0.2)
             self.plot_path(path[k])
             path_combine += path[k]
-            plt.pause(0.2)
+            #plt.pause(0.2)
         if self.xI in path_combine:
             path_combine.remove(self.xI)
         self.plot_path(path_combine)
@@ -51,7 +51,7 @@ class Plotting:
         for k in range(len(path)):
             self.plot_visited(visited[k], cl_v[k])
             self.plot_path(path[k], cl_p[k], True)
-            plt.pause(0.5)
+            #plt.pause(0.5)
 
         plt.show()
 
@@ -67,7 +67,7 @@ class Plotting:
 
         plt.plot(self.xI[0], self.xI[1], "bs")
         plt.plot(self.xG[0], self.xG[1], "gs")
-        plt.plot(obs_x, obs_y, "sk")
+        plt.plot(obs_x, obs_y, "sk", markersize = 1)
         plt.title(name)
         plt.axis("equal")
 
@@ -82,9 +82,9 @@ class Plotting:
 
         for x in visited:
             count += 1
-            plt.plot(x[0], x[1], color=cl, marker='o')
-            plt.gcf().canvas.mpl_connect('key_release_event',
-                                         lambda event: [exit(0) if event.key == 'escape' else None])
+            plt.plot(x[0], x[1], color=cl, marker='o', markersize=1)
+            #plt.gcf().canvas.mpl_connect('key_release_event',
+            #                             lambda event: [exit(0) if event.key == 'escape' else None])
 
             if count < len(visited) / 3:
                 length = 20
@@ -95,9 +95,9 @@ class Plotting:
             #
             # length = 15
 
-            if count % length == 0:
-                plt.pause(0.001)
-        plt.pause(0.01)
+            #if count % length == 0:
+            #    plt.pause(0.001)
+        #plt.pause(0.01)
 
     def plot_path(self, path, cl='r', flag=False):
         path_x = [path[i][0] for i in range(len(path))]
@@ -111,7 +111,7 @@ class Plotting:
         plt.plot(self.xI[0], self.xI[1], "bs")
         plt.plot(self.xG[0], self.xG[1], "gs")
 
-        plt.pause(0.01)
+        #plt.pause(0.01)
 
     def plot_visited_bi(self, v_fore, v_back):
         if self.xI in v_fore:
@@ -131,9 +131,17 @@ class Plotting:
             plt.gcf().canvas.mpl_connect('key_release_event',
                                          lambda event: [exit(0) if event.key == 'escape' else None])
 
-            if k % 10 == 0:
-                plt.pause(0.001)
-        plt.pause(0.01)
+            #if k % 10 == 0:
+            #    plt.pause(0.001)
+        #plt.pause(0.01)
+
+    def get_distance_path(self, path):
+        total_distance = 0.0
+        for i in range(len(path)-1):
+            x1, y1 = path[i]
+            x2, y2 = path[i+1]
+            total_distance += ((y2-y1)**2+(x2-x1)**2)**0.5 
+        return total_distance
 
     @staticmethod
     def color_list():

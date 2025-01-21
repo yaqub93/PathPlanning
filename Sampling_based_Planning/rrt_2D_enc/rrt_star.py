@@ -11,7 +11,7 @@ import numpy as np
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) +
                 "/../../Sampling_based_Planning/")
 
-from rrt_2D import env, plotting, utils, queue
+from rrt_2D_enc import env, plotting, utils, queue
 
 
 class Node:
@@ -39,9 +39,9 @@ class RrtStar:
 
         self.x_range = self.env.x_range
         self.y_range = self.env.y_range
-        self.obs_circle = self.env.obs_circle
-        self.obs_rectangle = self.env.obs_rectangle
-        self.obs_boundary = self.env.obs_boundary
+        #self.obs_circle = self.env.obs_circle
+        #self.obs_rectangle = self.env.obs_rectangle
+        #self.obs_boundary = self.env.obs_boundary
 
     def planning(self):
         for k in range(self.iter_max):
@@ -63,6 +63,7 @@ class RrtStar:
         index = self.search_goal_parent()
         self.path = self.extract_path(self.vertex[index])
 
+        return self.path
         #self.plotting.animation(self.vertex, self.path, "rrt*, N = " + str(self.iter_max))
 
     def new_state(self, node_start, node_goal):
